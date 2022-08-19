@@ -16,6 +16,17 @@ HIDMouse::~HIDMouse() {
 
 }
 
+void HIDMouse::move(SInt32 dx, SInt32 dy) {
+
+    LOG((CLOG_DEBUG "%i %i", dx, dy));
+
+    // TODO: Send multiple moves if the move is greater than 1 byte
+    m_data[1] = (char)dx;
+    m_data[2] = (char)dy;
+
+    update();
+}
+
 void HIDMouse::updateButton(ButtonID button, bool press) {
 
     UInt8 mask;

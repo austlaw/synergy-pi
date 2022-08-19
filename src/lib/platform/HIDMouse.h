@@ -12,6 +12,8 @@ public:
     HIDMouse(const std::string& path);
     ~HIDMouse();
 
+    void move(SInt32 dx, SInt32 dy);
+
     void updateButton(ButtonID button, bool press);
 
 private:

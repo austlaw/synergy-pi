@@ -23,7 +23,7 @@ void HIDTouch::move(UInt32 x, UInt32 y) {
     //auto xCoord = (UInt32) (xFrac * RESOLUTION);
     //auto yCoord = (UInt32) (yFrac * RESOLUTION);
 
-    LOG((CLOG_DEBUG "%u %u", xCoord, yCoord));
+    LOG((CLOG_DEBUG "%u %u", x, y));
 
     m_data[1] = x & 255;
     m_data[2] = (x >> 8) & 255;

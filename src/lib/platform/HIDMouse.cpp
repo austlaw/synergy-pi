@@ -16,12 +16,15 @@ HIDMouse::~HIDMouse() {
 
 }
 
-void HIDMouse::move(SInt32 x, SInt32 y) {
+void HIDMouse::move(UInt32 x, UInt32 y) {
 
-    LOG((CLOG_DEBUG "%i %i", x, y));
+    LOG((CLOG_DEBUG "%u %u", x, y));
 
     // Relative move
-    relativeMove(x - m_x, y - m_y);
+    m_data[1] = (char)dx;
+    m_data[2] = (char)dy;
+
+    update();
 }
 
 void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {

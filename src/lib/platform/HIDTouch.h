@@ -11,7 +11,8 @@ public:
     HIDTouch(const std::string& path);
     ~HIDTouch();
 
-    void move(float xFrac, float yFrac);
+    //void move(float xFrac, float yFrac);
+    void move(UInt32 x, UInt32 y);
 
 private:
     static const UInt32 RESOLUTION = 255;

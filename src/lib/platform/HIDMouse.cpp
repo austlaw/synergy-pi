@@ -19,10 +19,9 @@ HIDMouse::~HIDMouse() {
 void HIDMouse::move(SInt32 x, SInt32 y) {
 
     LOG((CLOG_DEBUG "%i %i", x, y));
-    LOG((CLOG_DEBUG "ERROR ABSOLUTE MOVE NOT IMPLEMENTS %i %i", x, y));
 
     // Relative move
-    relativeMove(x,y);
+    relativeMove(x - m_x, y - m_y);
 }
 
 void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {

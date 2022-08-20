@@ -124,7 +124,7 @@ void HIDScreen::fakeMouseButton(ButtonID button, bool press)
     m_mouseDevice.updateButton(button, press);
 }
 
-void HIDScreen::fakeMouseMove(UInt32 x, UInt32 y)
+void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
 {
     LOG((CLOG_DEBUG "fakeMouseMove: (%u %u)", x, y));
     m_mouseDevice.move(x,y);

@@ -22,14 +22,16 @@ void HIDMouse::move(SInt32 x, SInt32 y) {
     LOG((CLOG_DEBUG "ERROR ABSOLUTE MOVE NOT IMPLEMENTS %i %i", x, y));
 
     // Relative move
-    //relativeMove();
-
-    //update();
+    relativeMove(x - m_x, y - m_y);
 }
 
 void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
 
     LOG((CLOG_DEBUG "%i %i", dx, dy));
+
+    // Keep track of absolute position
+    m_x += dx;
+    m_y += dy;
 
     // TODO: Send multiple moves if the move is greater than 1 byte
     m_data[1] = (char)dx;

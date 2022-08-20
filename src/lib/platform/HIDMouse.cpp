@@ -21,8 +21,8 @@ void HIDMouse::move(UInt32 x, UInt32 y) {
     LOG((CLOG_DEBUG "%u %u", x, y));
 
     // Relative move
-    m_data[1] = (char)dx;
-    m_data[2] = (char)dy;
+    m_data[1] = (char)x;
+    m_data[2] = (char)y;
 
     update();
 }

@@ -19,7 +19,7 @@ HIDMouse::~HIDMouse() {
 // Absolute move, 0 - 1
 void HIDMouse::move(float fx, float fy) {
 
-    LOG((CLOG_DEBUG "%f %f", x, y));
+    LOG((CLOG_DEBUG "%f %f", fx, fy));
 
     // Scale
     UInt32 x = x * LOGICAL_MAX;

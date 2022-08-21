@@ -22,8 +22,8 @@ void HIDMouse::move(float fx, float fy) {
     LOG((CLOG_DEBUG "%f %f", fx, fy));
 
     // Scale
-    UInt32 x = x * LOGICAL_MAX;
-    UInt32 y = y * LOGICAL_MAX;
+    UInt32 x = fx * LOGICAL_MAX;
+    UInt32 y = fy * LOGICAL_MAX;
 
     LOG((CLOG_DEBUG "%u %u", x, y));
 

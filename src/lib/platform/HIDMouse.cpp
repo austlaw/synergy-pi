@@ -21,8 +21,8 @@ void HIDMouse::move(UInt32 x, UInt32 y) {
     LOG((CLOG_DEBUG "%u %u", x, y));
 
     // Scale
-    UInt64 scale_x = x * LOGICAL_MAX / RESOLUTION;
-    UInt64 scale_y = y * LOGICAL_MAX / RESOLUTION;
+    UInt32 scale_x = x * 7;
+    UInt32 scale_y = y * 7;
 
     LOG((CLOG_DEBUG "%u %u", scale_x, scale_y));
 

@@ -127,7 +127,8 @@ void HIDScreen::fakeMouseButton(ButtonID button, bool press)
 void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
 {
     LOG((CLOG_DEBUG "fakeMouseMove: (%u %u)", x, y));
-    m_mouseDevice.move(x,y);
+
+    m_mouseDevice.move( (float)x/m_w, (float)y/m_h );
 }
 
 void HIDScreen::fakeMouseRelativeMove(SInt32 dx, SInt32 dy) const

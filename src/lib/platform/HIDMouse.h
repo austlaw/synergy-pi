@@ -19,6 +19,8 @@ public:
 
 private:
     static const UInt32 DATA_SIZE = 5;
+    static const UInt32 LOGICAL_MAX = 0x7FFF;
+    static const UInt32 RESOLUTION = 0xFFF;
     SInt32              m_x;
     SInt32              m_y;
 };

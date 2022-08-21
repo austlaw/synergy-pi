@@ -20,12 +20,18 @@ void HIDMouse::move(UInt32 x, UInt32 y) {
 
     LOG((CLOG_DEBUG "%u %u", x, y));
 
-    // 16 bit absolute coordinates, sent as 2x bytes
-    m_data[1] = x & 0xFF;
-    m_data[2] = (x >> 8) & 0xFF;
+    // Scale
+    UInt64 scale_x = x * LOGICAL_MAX / RESOLUTION;
+    UInt64 scale_y = y * LOGICAL_MAX / RESOLUTION;
 
-    m_data[3] = y & 0xFF;
-    m_data[4] = (y >> 8) & 0xFF;
+    LOG((CLOG_DEBUG "%u %u", scale_x, scale_y));
+
+    // 16 bit absolute coordinates, sent as 2x bytes
+    m_data[1] = scale_x & 0xFF;
+    m_data[2] = (scale_x >> 8) & 0xFF;
+
+    m_data[3] = scale_y & 0xFF;
+    m_data[4] = (scale_y >> 8) & 0xFF;
 
     update();
 }

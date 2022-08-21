@@ -25,11 +25,11 @@ void HIDTouch::move(UInt32 x, UInt32 y) {
 
     LOG((CLOG_DEBUG "%u %u", x, y));
 
-    m_data[1] = x & 0xFF;
-    m_data[2] = (x >> 8) & 0xFF;
+    m_data[1] = (x >> 8) & 0xFF;
+    m_data[2] = x & 0xFF;
 
-    m_data[3] = y & 0xFF;
-    m_data[4] = (y >> 8) & 0xFF;
+    m_data[3] = (y >> 8) & 0xFF;
+    m_data[4] = y & 0xFF;
 
     LOG((CLOG_DEBUG "%u %u, %u %u", m_data[1], m_data[2], m_data[3], m_data[4]));
 

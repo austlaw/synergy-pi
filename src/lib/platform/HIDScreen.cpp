@@ -7,15 +7,13 @@
 #include "HIDScreen.h"
 
 HIDScreen::HIDScreen(
-        const std::string& mouseDevice,
         const std::string& keyboardDevice,
-        const std::string& touchDevice,
+        const std::string& mouseDevice,
         SInt32 screenWidth,
         SInt32 screenHeight,
         IEventQueue *events) :
     PlatformScreen(events),
     m_mouseDevice(mouseDevice),
-    m_touchDevice(touchDevice),
     m_w(screenWidth),
     m_h(screenHeight),
     m_mousex(-1),
@@ -128,7 +126,10 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
 {
     LOG((CLOG_DEBUG "fakeMouseMove: (%u %u)", x, y));
 
-    m_mouseDevice.move( (float)x/m_w, (float)y/m_h );
+    // Mouse is bound to the screen width and height
+    // The screen should never try to move the mouse outside of the screen, the 
+
+    m_mouseDevice.move(x, y);
 }
 
 void HIDScreen::fakeMouseRelativeMove(SInt32 dx, SInt32 dy) const

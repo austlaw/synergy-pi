@@ -12,11 +12,7 @@ public:
     HIDMouse(const std::string& path);
     ~HIDMouse();
 
-    void move(UInt32 x, UInt32 y);
-    void relativeMove(SInt32 dx, SInt32 dy);
-
-    UInt32 getX() { return m_x; }
-    UInt32 getY() { return m_y; }
+    void move(float fx, float fy);
 
     void updateButton(ButtonID button, bool press);
 

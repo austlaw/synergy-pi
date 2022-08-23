@@ -16,12 +16,12 @@ HIDTouch::~HIDTouch() {
 
 }
 
-void HIDTouch::move(UInt32 x, UInt32 y) {
+void HIDTouch::move(float fx, float fy) {
 
     m_data[0] = 0x02;
 
-    //auto xCoord = (UInt32) (xFrac * RESOLUTION);
-    //auto yCoord = (UInt32) (yFrac * RESOLUTION);
+    auto xCoord = (UInt32) (fx * RESOLUTION);
+    auto yCoord = (UInt32) (fy * RESOLUTION);
 
     LOG((CLOG_DEBUG "%u %u", x, y));
 

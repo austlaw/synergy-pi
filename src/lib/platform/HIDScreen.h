@@ -8,13 +8,11 @@
 #include "HIDKeyboard.h"
 #include "HIDKeyState.h"
 #include "HIDMouse.h"
-#include "HIDTouch.h"
 
 class HIDScreen : public PlatformScreen {
 public:
-    HIDScreen(const std::string & mouseDevice,
-              const std::string & keyboardDevice,
-              const std::string & touchDevice,
+    HIDScreen(const std::string & keyboardDevice,
+              const std::string & mouseDevice,
               int screenWidth, int screenHeight,
               IEventQueue *events);
     virtual ~HIDScreen();
@@ -71,7 +69,6 @@ protected:
 
 private:
     HIDMouse            m_mouseDevice;
-    HIDTouch            m_touchDevice;
     SInt32              m_w, m_h;
     int                 m_mousex;
     int                 m_mousey;

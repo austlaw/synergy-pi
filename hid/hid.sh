@@ -2,6 +2,14 @@
 
 # this is a stripped down version of https://github.com/ckuethe/usbarmory/wiki/USB-Gadgets - I don't claim any rights
 
+
+# Linux only
+if [ "$(lsusb)" != "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub" ]
+then
+  exit 1
+fi
+
+
 modprobe libcomposite
 cd /sys/kernel/config/usb_gadget/
 mkdir -p g1

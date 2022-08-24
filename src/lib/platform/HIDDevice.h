@@ -14,6 +14,7 @@ public:
     virtual ~HIDDevice();
 
 protected:
+    std::string m_path;
     size_t m_dataSize;
     char* m_data;
     void update();

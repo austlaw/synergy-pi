@@ -3,7 +3,7 @@
 //
 
 #include <base/Log.h>
-#include "HIDMouse.h"
+#include "HIDMouseAbs.h"
 
 HIDMouse::HIDMouse(
         const std::string& path) :

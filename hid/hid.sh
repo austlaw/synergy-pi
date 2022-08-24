@@ -1,7 +1,4 @@
-# Snippet from https://github.com/girst/hardpass-sendHID/blob/master/README.md . In which, the following notice was left:
-
-# this is a stripped down version of https://github.com/ckuethe/usbarmory/wiki/USB-Gadgets - I don't claim any rights
-
+#!/bin/bash
 
 # Linux only
 #if [ "$(lsusb)" != "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub" ]
@@ -41,7 +38,7 @@ echo -ne \\x05\\x01\\x09\\x02\\xa1\\x01\\x09\\x01\\xa1\\x00\\x05\\x09\\x19\\x01\
 #mkdir -p functions/hid.$C_N
 #echo 2 > functions/hid.$C_N/protocol
 #echo 1 > functions/hid.$C_N/subclass
-#echo 3 > functions/hid.$C_N/report_length
+#echo 5 > functions/hid.$C_N/report_length
 #echo -ne \\x05\\x01\\x09\\x02\\xa1\\x01\\x09\\x01\\xa1\\x00\\x05\\x09\\x19\\x01\\x29\\x03\\x15\\x00\\x25\\x01\\x95\\x03\\x75\\x01\\x81\\x02\\x95\\x01\\x75\\x05\\x81\\x03\\x05\\x01\\x09\\x30\\x09\\x31\\x15\\x00\\x26\\xFF\\x7F\\x75\\x10\\x95\\x02\\x81\\x02\\xc0\\xc0 > functions/hid.$C_N/report_desc
 
 D=1

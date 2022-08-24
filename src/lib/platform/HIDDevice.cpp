@@ -37,7 +37,8 @@ void HIDDevice::update() {
     while (written < m_dataSize) {
         ssize_t result = write(m_fd, m_data + written, m_dataSize - written);
         if (result < 0) {
-            throw std::runtime_error("failed to write to HID device: %s", m_path);
+            LOG((CLOG_DEBUG "Failed to write to HID device: %s", m_path));
+            throw std::runtime_error("failed to write to HID device", );
         }
         written += result;
     }

@@ -45,11 +45,13 @@ public:
     bool                m_disableXInitThreads;
     int                 m_runAsUid;
     bool                m_hid;
-    String              m_mouseDevice;
     String              m_keyboardDevice;
-    String              m_touchDevice;
+    String              m_mouseDevice;
+    String              m_mouseAbsDevice;
     int                 m_screenWidth;
     int                 m_screenHeight;
+    int                 m_screenX;
+    int                 m_screenY;
 #endif
     bool                m_shouldExit;
     String                m_synergyAddress;

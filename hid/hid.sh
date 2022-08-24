@@ -47,7 +47,7 @@ echo "Config $D: ECM network" > configs/c.$D/strings/0x409/configuration
 echo 250 > configs/c.$D/MaxPower
 ln -s functions/hid.$A_N configs/c.$D/
 ln -s functions/hid.$B_N configs/c.$D/
-#ln -s functions/hid.$C_N configs/c.$D/
+ln -s functions/hid.$C_N configs/c.$D/
 ls /sys/class/udc > UDC
 
 

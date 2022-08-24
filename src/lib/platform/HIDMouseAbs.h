@@ -9,8 +9,8 @@
 
 class HIDMouseAbs : public HIDDevice {
 public:
-    HIDMouse(const std::string& path);
-    ~HIDMouse();
+    HIDMouseAbs(const std::string& path);
+    ~HIDMouseAbs();
 
     void move(float fx, float fy);
 

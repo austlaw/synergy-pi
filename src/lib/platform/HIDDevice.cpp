@@ -18,6 +18,8 @@ HIDDevice::HIDDevice(
         throw XScreenOpenFailure("failed to open HID device");
     }
 
+    LOG((CLOG_DEBUG "hid device created: (%s)", path));
+
     m_data = new char[m_dataSize];
     memset(m_data, 0, m_dataSize);
 }

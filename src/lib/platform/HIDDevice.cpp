@@ -19,7 +19,7 @@ HIDDevice::HIDDevice(
         throw XScreenOpenFailure("failed to open HID device");
     }
 
-    LOG((CLOG_DEBUG "hid device created: %s", path));
+    LOG((CLOG_DEBUG "hid device created: %s", path.c_str()));
 
     m_data = new char[m_dataSize];
     memset(m_data, 0, m_dataSize);
@@ -37,7 +37,7 @@ void HIDDevice::update() {
     while (written < m_dataSize) {
         ssize_t result = write(m_fd, m_data + written, m_dataSize - written);
         if (result < 0) {
-            LOG((CLOG_DEBUG "Failed to write to HID device: %s", m_path));
+            LOG((CLOG_DEBUG "Failed to write to HID device: %s", m_path.c_str()));
             throw std::runtime_error("failed to write to HID device");
         }
         written += result;

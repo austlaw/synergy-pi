@@ -9,15 +9,21 @@
 HIDScreen::HIDScreen(
         const std::string& keyboardDevice,
         const std::string& mouseDevice,
+        const std::string& mouseAbsDevice,
         SInt32 screenWidth,
         SInt32 screenHeight,
+        SInt32 screenX,
+        SInt32 screenY,
         IEventQueue *events) :
     PlatformScreen(events),
     m_mouseDevice(mouseDevice),
-    m_w(screenWidth),
-    m_h(screenHeight),
-    m_mousex(-1),
-    m_mousey(-1),
+    m_mouseAbsDevice(mouseAbsDevice),
+    m_width(screenWidth),
+    m_height(screenHeight),
+    m_x(screenX),
+    m_y(screenY),
+    m_mouseX(-1),
+    m_mouseY(-1),
     m_events(events),
     m_keyState(nullptr)
 {
@@ -57,15 +63,14 @@ void HIDScreen::getShape(SInt32 &x, SInt32 &y, SInt32 &w, SInt32 &h) const
 {
     x = 0;
     y = 0;
-    w = m_w;
-    h = m_h;
+    w = m_width;
+    h = m_height;
 }
 
 void HIDScreen::getCursorPos(SInt32 &x, SInt32 &y) const
 {
-    x = 0;
-    y = 0;
-    // TODO
+    x = m_mouseX;
+    y = m_mouseY;
 }
 
 void HIDScreen::reconfigure(UInt32 /*unused*/)
@@ -124,19 +129,23 @@ void HIDScreen::fakeMouseButton(ButtonID button, bool press)
 
 void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
 {
-    LOG((CLOG_DEBUG "fakeMouseMove: (%u %u)", x, y));
+    LOG((CLOG_DEBUG "fakeMouseMove: (%i %i)", x, y));
 
-    // Mouse is bound to the screen width and height
-    // The screen should never try to move the mouse outside of the screen, the 
+    // Relative movement
+    SInt32 dx = x - m_mouseX;
+    SInt32 dy = y - m_mouseY;
 
-    m_mouseDevice.move(x, y);
+    // Store position
+    m_mouseX = x;
+    m_mouseY = y;
+
+    m_mouseDevice.relativeMove(dx, dy);
 }
 
 void HIDScreen::fakeMouseRelativeMove(SInt32 dx, SInt32 dy) const
 {
     LOG((CLOG_DEBUG "fakeMouseRelativeMove: (%d %d)", dx, dy));
-    // TODO
-    //m_mouseDevice.relativeMove(dx,dy);
+    m_mouseDevice.relativeMove(dx, dy);
 }
 
 void HIDScreen::fakeMouseWheel(SInt32 xDelta, SInt32 yDelta) const
@@ -156,9 +165,10 @@ void HIDScreen::disable()
 
 void HIDScreen::enter()
 {
-    // Assume the mouse location is unknown again
-    m_mousex = -1;
-    m_mousey = -1;
+    // Move the mouse to a known location
+    m_mouseX = 0;
+    m_mouseY = 0;
+    m_mouseAbsDevice.move(0, 0);
 }
 
 bool HIDScreen::leave()

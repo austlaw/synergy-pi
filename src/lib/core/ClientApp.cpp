@@ -110,11 +110,11 @@ ClientApp::help()
 {
 #if WINAPI_XWINDOWS
 #  define WINAPI_ARG \
-    " [--display <display>] [--no-xinitthreads] [--hid <keyboard> <mouse> <width> <height>]"
+    " [--display <display>] [--no-xinitthreads] [--hid <keyboard> <relative mouse> <absolute mouse> <width> <height> <x> <y>]"
 #  define WINAPI_INFO \
     "      --display <display>  connect to the X server at <display>\n" \
     "      --no-xinitthreads    do not call XInitThreads()\n" \
-    "      --hid <keyboard> <mouse> <width> <height>\n" \
+    "      --hid <keyboard> <relative mouse> <absolute mouse> <width> <height>\n" \
     "        run in HID mode with the given <keyboard> and <mouse> devices\n"
 #else
 #  define WINAPI_ARG
@@ -180,8 +180,11 @@ ClientApp::createScreen()
 #elif WINAPI_XWINDOWS
     if (args().m_hid) {
         return new synergy::Screen(new HIDScreen(
-                args().m_keyboardDevice, args().m_mouseDevice,
+                args().m_keyboardDevice,
+                args().m_mouseDevice,
+                args().m_mouseAbsDevice,
                 args().m_screenWidth, args().m_screenHeight,
+                args().m_screenX, args().m_screenY,
                 m_events), m_events);
         //m_bye(kExitArgs);
     }

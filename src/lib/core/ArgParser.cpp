@@ -151,13 +151,15 @@ ArgParser::parsePlatformArg(ArgsBase& argsBase, const int& argc, const char* con
         argsBase.m_disableXInitThreads = true;
     }
 
-    else if (isArg(i, argc, argv, nullptr, "--hid", 5)) {
+    else if (isArg(i, argc, argv, nullptr, "--hid", 7)) {
         argsBase.m_hid = true;
-        argsBase.m_mouseDevice = argv[++i];
         argsBase.m_keyboardDevice = argv[++i];
-        argsBase.m_touchDevice = argv[++i];
+        argsBase.m_mouseDevice = argv[++i];
+        argsBase.m_mouseAbsDevice = argv[++i];
         argsBase.m_screenWidth = atoi(argv[++i]);
         argsBase.m_screenHeight = atoi(argv[++i]);
+        argsBase.m_screenX = atoi(argv[++i]);
+        argsBase.m_screenY = atoi(argv[++i]);
     }
 
     else {

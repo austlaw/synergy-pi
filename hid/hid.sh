@@ -38,12 +38,20 @@ echo 1 > functions/hid.$B_N/subclass
 echo 3 > functions/hid.$B_N/report_length
 echo -ne \\x05\\x01\\x09\\x02\\xa1\\x01\\x09\\x01\\xa1\\x00\\x05\\x09\\x19\\x01\\x29\\x03\\x15\\x00\\x25\\x01\\x95\\x03\\x75\\x01\\x81\\x02\\x95\\x01\\x75\\x05\\x81\\x03\\x05\\x01\\x09\\x30\\x09\\x31\\x15\\x00\\x26\\xFF\\x7F\\x75\\x10\\x95\\x02\\x81\\x02\\xc0\\xc0 > functions/hid.$B_N/report_desc
 
+C_N="mouse_abs"
+mkdir -p functions/hid.$C_N
+echo 2 > functions/hid.$C_N/protocol
+echo 1 > functions/hid.$C_N/subclass
+echo 3 > functions/hid.$C_N/report_length
+echo -ne \\x05\\x01\\x09\\x02\\xa1\\x01\\x09\\x01\\xa1\\x00\\x05\\x09\\x19\\x01\\x29\\x03\\x15\\x00\\x25\\x01\\x95\\x03\\x75\\x01\\x81\\x02\\x95\\x01\\x75\\x05\\x81\\x03\\x05\\x01\\x09\\x30\\x09\\x31\\x15\\x00\\x26\\xFF\\x7F\\x75\\x10\\x95\\x02\\x81\\x02\\xc0\\xc0 > functions/hid.$B_N/report_desc
+
 D=1
 mkdir -p configs/c.$D/strings/0x409
 echo "Config $D: ECM network" > configs/c.$D/strings/0x409/configuration
 echo 250 > configs/c.$D/MaxPower
 ln -s functions/hid.$A_N configs/c.$D/
 ln -s functions/hid.$B_N configs/c.$D/
+ln -s functions/hid.$C_N configs/c.$D/
 ls /sys/class/udc > UDC
 
 

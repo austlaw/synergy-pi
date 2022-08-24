@@ -5,19 +5,19 @@
 #include <base/Log.h>
 #include "HIDMouseAbs.h"
 
-HIDMouse::HIDMouse(
+HIDMouseAbs::HIDMouseAbs(
         const std::string& path) :
     HIDDevice(path, DATA_SIZE)
 {
 
 }
 
-HIDMouse::~HIDMouse() {
+HIDMouseAbs::~HIDMouseAbs() {
 
 }
 
 // Absolute move, 0 - 1
-void HIDMouse::move(float fx, float fy) {
+void HIDMouseAbs::move(float fx, float fy) {
 
     LOG((CLOG_DEBUG "%f %f", fx, fy));
 
@@ -38,7 +38,7 @@ void HIDMouse::move(float fx, float fy) {
     update();
 }
 
-void HIDMouse::updateButton(ButtonID button, bool press) {
+void HIDMouseAbs::updateButton(ButtonID button, bool press) {
 
     UInt8 mask;
 

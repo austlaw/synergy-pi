@@ -7,7 +7,7 @@
 #include "core/mouse_types.h"
 #include "HIDDevice.h"
 
-class HIDMouse : public HIDDevice {
+class HIDMouseAbs : public HIDDevice {
 public:
     HIDMouse(const std::string& path);
     ~HIDMouse();

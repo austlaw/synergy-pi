@@ -139,7 +139,7 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
     m_mouseX = x;
     m_mouseY = y;
 
-    m_mouseDevice.relativeMove(dx, dy);
+    //m_mouseDevice.relativeMove(dx, dy);
 }
 
 void HIDScreen::fakeMouseRelativeMove(SInt32 dx, SInt32 dy) const

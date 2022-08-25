@@ -30,7 +30,7 @@ HIDMouse::~HIDMouse() {
 
 void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
 
-    LOG((CLOG_DEBUG "%i %i", dx, dy));
+    LOG((CLOG_DEBUG "relativeMove: %i %i", dx, dy));
 
     // TODO: Send multiple moves if the move is greater than 1 byte
     m_data[1] = (char)dx;

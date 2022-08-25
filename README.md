@@ -5,14 +5,17 @@ and mouse sharing tool.
 For compilation and configuration, check
 [the main repo](https://github.com/symless/synergy-core).
 
-One current limitation of Synergy is the relatively powerful control it
-needs to control the mouse and keyboard. For this reason, operating
-systems like Android and Chrome OS will likely never support Synergy
-directly.
+Many corporate environments require the use of a VPN that prevents network connectivity
+between the synergy server and client. Furthermore, administrative permissions are
+required to install the synergy client. By using a programmable USB device no network
+connectivity is required and no client needs to be installed on the remote computer.
 
-However, by employing the use of a programmable HID (such as a
-[Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/)),
-Synergy can be used on pretty much any device that supports USB devices.
+Standard HID mouse drivers support absolute position but only on a single display.
+Therefore, two HID mice are emulated, one with absolute positioning and one with
+relative positioning.
+
+The original hid-synergy fork found here (https://github.com/alexvanyo/hid-synergy) 
+was intended to work on mobile devices. This branch is intended to work on desk
 
 ## Raspberry Pi Zero W Setup
 
@@ -35,21 +38,14 @@ by running `hid-gadget-test.c` with the mouse and keyboard.
 After compiling Synergy on the Raspberry Pi Zero W, there is a single
 new option for use with the client:
 
-```[--hid <mouse> <keyboard> <digitizer> <width> height>]```
+```[--hid <keyboard> <mouse> <mouse2> <width> height> <x> <y>]```
 
-The mouse, keyboard and digitzer arguments correspond to the HID file
-path for each. For the `hid.sh` above, these should be `/dev/hidg0`,
+The keyboard and mouse and mouse2 arguments correspond to the HID dev
+path for each. For the `hid.sh` included, these should be `/dev/hidg0`,
 `/dev/hidg1` and `/dev/hidg2` in order.
 
-The width and height arguments describe the width and height of the
-desired client screen. Modifying these values while maintaining the
-same aspect ratio will change how quickly the mouse will move on the
-client device.
 
 ## Known Issues/Limitations
-
-- The digitizer precision is currently limited to a resolution of 255 * 255,
-and the bottom and right edges of the screen are unreachable
 - The mouse wheel functionality isn't implemented yet
 - The clipboard is not shared with the client device. This could potentially
 be done with a companion app, or in a limited auto-type fashion for just text.

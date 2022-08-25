@@ -1,6 +1,3 @@
-//
-// Created by xela on 5/3/18.
-//
 
 #include <base/Log.h>
 #include "HIDMouseAbs.h"
@@ -19,7 +16,7 @@ HIDMouseAbs::~HIDMouseAbs() {
 // Absolute move, 0 - 1
 void HIDMouseAbs::move(float fx, float fy) {
 
-    LOG((CLOG_DEBUG "%f %f", fx, fy));
+    LOG((CLOG_DEBUG "absoluteMove: %f %f", fx, fy));
 
     // Scale
     UInt32 x = fx * LOGICAL_MAX;

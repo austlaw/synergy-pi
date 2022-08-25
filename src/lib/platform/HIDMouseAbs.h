@@ -1,7 +1,3 @@
-//
-// Created by xela on 5/3/18.
-//
-
 #pragma once
 
 #include "core/mouse_types.h"

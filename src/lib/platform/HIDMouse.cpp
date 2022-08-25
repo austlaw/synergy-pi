@@ -32,9 +32,20 @@ void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
 
     LOG((CLOG_DEBUG "relativeMove: %i %i", dx, dy));
 
-    // TODO: Send multiple moves if the move is greater than 1 byte
-    m_data[1] = (char)dx;
-    m_data[2] = (char)dy;
+    // char
+    //m_data[1] = (char)dx;
+    //m_data[2] = (char)dy;
+
+    // Convert to SInt16
+    SInt16 dx16 = (SInt16)dx;
+    SInt16 dy16 = (SInt16)dy;
+
+    // SInt16 Little Endian
+    m_data[1] = dx & 0xFF;
+    m_data[2] = (dx >> 8) & 0xFF;
+
+    m_data[3] = dy & 0xFF;
+    m_data[4] = (dy >> 8) & 0xFF;
 
     update();
 }

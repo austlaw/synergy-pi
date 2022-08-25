@@ -24,7 +24,7 @@ void HIDMouseAbs::move(float fx, float fy) {
 
     LOG((CLOG_DEBUG "absoluteMove: %u %u", x, y));
 
-    // UInt16 Little endian
+    // UInt16 Little Endian
     m_data[1] = x & 0xFF;
     m_data[2] = (x >> 8) & 0xFF;
 

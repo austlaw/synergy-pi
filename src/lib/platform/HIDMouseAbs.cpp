@@ -22,7 +22,7 @@ void HIDMouseAbs::move(float fx, float fy) {
     UInt32 x = fx * LOGICAL_MAX; // 0 is invalid
     UInt32 y = fy * LOGICAL_MAX; // 0 is invalid
 
-    LOG((CLOG_DEBUG "absoluteMove: (%f,%f) (%u,%u)", x, y));
+    LOG((CLOG_DEBUG "absoluteMove: (%f,%f) (%u,%u)", fx, fy, x, y));
 
     // UInt16 Little Endian
     m_data[1] = x & 0xFF;

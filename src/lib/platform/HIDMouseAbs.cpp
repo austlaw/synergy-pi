@@ -14,19 +14,14 @@ HIDMouseAbs::~HIDMouseAbs() {
 }
 
 // Absolute move
-// 0.0 < fx < 1.0
-// 0.0 < fy < 1.0
+// 0.0 < fx <= 1.0
+// 0.0 < fy <= 1.0
 void HIDMouseAbs::move(float fx, float fy) {
-
-    LOG((CLOG_DEBUG "absoluteMove: %f %f", fx, fy));
-    fx = 1.0;
-    fy = 1.0;
-
     // Scale
-    UInt32 x = fx * LOGICAL_MAX;
-    UInt32 y = fy * LOGICAL_MAX;
+    UInt32 x = fx * (LOGICAL_MAX - 1) + 1; // 0 is invalid
+    UInt32 y = fy * (LOGICAL_MAX - 1) + 1; // 0 is invalid
 
-    LOG((CLOG_DEBUG "absoluteMove: %u %u", x, y));
+    LOG((CLOG_DEBUG "absoluteMove: (%f,%f) (%u,%u)", fx, fy, x, y));
 
     // UInt16 Little Endian
     m_data[1] = x & 0xFF;

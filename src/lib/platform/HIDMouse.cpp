@@ -29,23 +29,18 @@ HIDMouse::~HIDMouse() {
 // }
 
 void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
-
-    LOG((CLOG_DEBUG "relativeMove: %i %i", dx, dy));
-
-    // char
-    //m_data[1] = (char)dx;
-    //m_data[2] = (char)dy;
-
     // Convert to SInt16
     SInt16 dx16 = (SInt16)dx;
     SInt16 dy16 = (SInt16)dy;
 
-    // SInt16 Little Endian 
-    m_data[1] = dx & 0xFF;
-    m_data[2] = (dx >> 8) & 0xFF;
+    LOG((CLOG_DEBUG "relativeMove: %i %i", dx16, dy16));
 
-    m_data[3] = dy & 0xFF;
-    m_data[4] = (dy >> 8) & 0xFF;
+    // SInt16 Little Endian 
+    m_data[1] = dx16 & 0xFF;
+    m_data[2] = (dx16 >> 8) & 0xFF;
+
+    m_data[3] = dy16 & 0xFF;
+    m_data[4] = (dy16 >> 8) & 0xFF;
 
     update();
 }

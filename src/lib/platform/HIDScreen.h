@@ -73,7 +73,8 @@ protected:
 private:
     HIDMouse            m_mouseDevice;
     HIDMouseAbs         m_mouseAbsDevice;
-    SInt32              m_width, m_height, m_x, m_y;
+    SInt32              m_width, m_height;
+    SInt32              m_x, m_y;
     int                 m_mouseX, m_mouseY;
 
     IEventQueue*        m_events;

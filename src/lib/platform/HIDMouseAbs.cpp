@@ -13,7 +13,7 @@ HIDMouseAbs::~HIDMouseAbs() {
 
 }
 
-// Absolute move, 0 - 1
+// Absolute move, (0.0,0.0) Upper Left; (1.0,1.0) Lower RIght
 void HIDMouseAbs::move(float fx, float fy) {
 
     LOG((CLOG_DEBUG "absoluteMove: %f %f", fx, fy));

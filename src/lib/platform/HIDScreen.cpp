@@ -172,7 +172,7 @@ void HIDScreen::enter()
     // Move the mouse to a known location
     m_mouseX = 0;
     m_mouseY = 0;
-    m_mouseAbsDevice.move(0, 0);
+    m_mouseAbsDevice.move(0.1, 0.1);
 }
 
 bool HIDScreen::leave()

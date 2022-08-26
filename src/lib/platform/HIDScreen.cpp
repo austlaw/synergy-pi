@@ -169,10 +169,10 @@ void HIDScreen::disable()
 
 void HIDScreen::enter()
 {
-    // Move the mouse to a known location
-    m_mouseX = 0;
-    m_mouseY = 0;
-    m_mouseAbsDevice.move(0.0, 0.0);
+    // Move the mouse to the center of the primary screen
+    m_mouseX = m_width / 2;
+    m_mouseY = m_height / 2;
+    m_mouseAbsDevice.move((float)m_mouseX/m_width, (float)m_mouseY/m_height);
 }
 
 bool HIDScreen::leave()

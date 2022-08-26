@@ -29,6 +29,7 @@ HIDMouse::~HIDMouse() {
 // }
 
 void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
+    // TODO: Throw error if value is greater than maximum
     // Convert to SInt16
     SInt16 dx16 = (SInt16)dx;
     SInt16 dy16 = (SInt16)dy;

@@ -142,8 +142,8 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
     //m_mouseDevice.relativeMove(dx, dy);
 
     // Absolute move
-    float fx = (float)x/m_screenWidth;
-    float fy = (float)y/m_screenHeight;
+    float fx = (float)x/m_width;
+    float fy = (float)y/m_height;
     m_mouseAbsDevice.move(fx, fy);
 }
 

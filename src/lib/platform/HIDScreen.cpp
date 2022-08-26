@@ -134,7 +134,7 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
     // Relative movement
     SInt32 dx = x - m_mouseX;
     SInt32 dy = y - m_mouseY;
-    //m_mouseDevice.relativeMove(dx, dy);
+    m_mouseDevice.relativeMove(dx, dy);
 
     // Absolute move
     //float fx = (float)x/m_width;
@@ -172,7 +172,7 @@ void HIDScreen::enter()
     // Move the mouse to a known location
     m_mouseX = 0;
     m_mouseY = 0;
-    m_mouseAbsDevice.move(0.1, 0.1);
+    m_mouseAbsDevice.move(0.01, 0.01);
 }
 
 bool HIDScreen::leave()

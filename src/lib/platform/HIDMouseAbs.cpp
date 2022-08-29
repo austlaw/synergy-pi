@@ -64,5 +64,11 @@ void HIDMouseAbs::updateButton(ButtonID button, bool press) {
         m_data[0] ^= mask;
     }
 
+    // Movement should be zero for button updates
+    m_data[1] = 0x00;
+    m_data[2] = 0x00;
+    m_data[3] = 0x00;
+    m_data[4] = 0x00;
+
     update();
 }

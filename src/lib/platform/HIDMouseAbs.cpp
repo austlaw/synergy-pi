@@ -59,10 +59,6 @@ void HIDMouseAbs::updateButton(ButtonID button, bool press) {
     report[3] = 0x00;
     report[4] = 0x00;
 
-    // Wheel
-    report[5] = 0x00;
-    report[6] = 0x00;
-
     update(report);
 }
 
@@ -94,9 +90,6 @@ void HIDMouseAbs::move(float fx, float fy) {
     report[3] = y & 0xFF;
     report[4] = (y >> 8) & 0xFF;
 
-    // Wheel
-    report[5] = 0x00;
-    report[6] = 0x00;
 
     update(report);
 }

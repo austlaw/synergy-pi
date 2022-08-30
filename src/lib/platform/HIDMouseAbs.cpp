@@ -15,7 +15,7 @@ HIDMouseAbs::~HIDMouseAbs() {
 }
 
 
-void HIDMouse::updateButton(ButtonID button, bool press) {
+void HIDMouseAbs::updateButton(ButtonID button, bool press) {
 
     UInt8 mask;
 

@@ -46,6 +46,7 @@ void HIDMouse::updateButton(ButtonID button, bool press) {
 
     // Report
     char report[m_reportSize];
+    memset(report,0,m_reportSize);
 
     // Buttons
     report[0] = m_buttons;
@@ -86,12 +87,12 @@ void HIDMouseAbs::move(float fx, float fy) {
     report[0] = m_buttons;
 
     // X
-    m_data[1] = x & 0xFF;
-    m_data[2] = (x >> 8) & 0xFF;
+    report[1] = x & 0xFF;
+    report[2] = (x >> 8) & 0xFF;
 
     // Y
-    m_data[3] = y & 0xFF;
-    m_data[4] = (y >> 8) & 0xFF;
+    report[3] = y & 0xFF;
+    report[4] = (y >> 8) & 0xFF;
 
     // Wheel
     report[5] = 0x00;

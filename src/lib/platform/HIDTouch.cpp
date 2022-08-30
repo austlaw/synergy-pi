@@ -7,7 +7,7 @@
 
 HIDTouch::HIDTouch(
         const std::string& path) :
-    HIDDevice(path, DATA_SIZE)
+    HIDDevice(path, REPORT_SIZE)
 {
 
 }
@@ -18,20 +18,25 @@ HIDTouch::~HIDTouch() {
 
 void HIDTouch::move(float fx, float fy) {
 
-    m_data[0] = 0x02;
-
     auto x = (UInt32) (fx * RESOLUTION);
     auto y = (UInt32) (fy * RESOLUTION);
 
     LOG((CLOG_DEBUG "%u %u", x, y));
 
-    m_data[1] = (x >> 8) & 0xFF;
-    m_data[2] = x & 0xFF;
+    // Report
+    char report[m_reportSize];
+    memset(report,0,m_reportSize);
 
-    m_data[3] = (y >> 8) & 0xFF;
-    m_data[4] = y & 0xFF;
+    // Butons??
+    report[0] = 0x02;
 
-    LOG((CLOG_DEBUG "%u %u, %u %u", m_data[1], m_data[2], m_data[3], m_data[4]));
+    // X
+    report[1] = (x >> 8) & 0xFF;
+    report[2] = x & 0xFF;
 
-    update();
+    // Y
+    report[3] = (y >> 8) & 0xFF;
+    report[4] = y & 0xFF;
+
+    update(report);
 }

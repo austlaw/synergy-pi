@@ -25,7 +25,6 @@ HIDDevice::HIDDevice(
 HIDDevice::~HIDDevice()
 {
     close(m_fd);
-    delete m_data;
 }
 
 void HIDDevice::update(char* report) const {

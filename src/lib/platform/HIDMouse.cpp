@@ -109,7 +109,7 @@ void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) const {
 
 void HIDMouse::wheel(SInt32 dy) const {
     // Convert to SInt16
-    SInt16 dy16 = (SInt16)dy;
+    SInt16 dy16 = (SInt16)(dy/WHEEL_SCALE);
 
     LOG((CLOG_DEBUG "HIDMouse::wheel(%i)", (SInt32)dy16));
 

@@ -16,7 +16,7 @@ public:
 
     void pressKey(KeyID button);
     void releaseKey(KeyID button);
-    void updateKeys();
+    void updateKeys() const;
 
 private:
     unsigned char m_modifier = 0;

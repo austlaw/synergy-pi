@@ -12,10 +12,10 @@ public:
     HIDMouse(const std::string& path);
     ~HIDMouse();
 
-    void relativeMove(SInt32 dx, SInt32 dy);
-
     void updateButton(ButtonID button, bool press);
+    void relativeMove(SInt32 dx, SInt32 dy);
+    void wheel(SInt32 dy);
 
 private:
-    static const UInt32 DATA_SIZE = 5;
+    static const UInt32 DATA_SIZE = 7;
 };

@@ -5,6 +5,14 @@
 #include <base/Log.h>
 #include "HIDMouse.h"
 
+/**
+ * @brief Construct a new HIDMouse::HIDMouse object
+ * [B]
+ * [X][X]
+ * [Y][Y]
+ * [W][W]
+ * @param path 
+ */
 HIDMouse::HIDMouse(
         const std::string& path) :
     HIDDevice(path, DATA_SIZE)
@@ -14,36 +22,6 @@ HIDMouse::HIDMouse(
 
 HIDMouse::~HIDMouse() {
 
-}
-
-// void HIDMouse::move(UInt32 x, UInt32 y) {
-
-//     LOG((CLOG_DEBUG "%i %i", x, y));
-
-//     SInt32 dx = x - m_x;
-//     SInt32 dy = y - m_y;
-
-//     relativeMove(dx, dy);
-
-//     update();
-// }
-
-void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
-    // TODO: Throw error if value is greater than maximum
-    // Convert to SInt16
-    SInt16 dx16 = (SInt16)dx;
-    SInt16 dy16 = (SInt16)dy;
-
-    LOG((CLOG_DEBUG "relativeMove: %i %i", (SInt32)dx16, (SInt32)dy16));
-
-    // SInt16 Little Endian 
-    m_data[1] = dx16 & 0xFF;
-    m_data[2] = (dx16 >> 8) & 0xFF;
-
-    m_data[3] = dy16 & 0xFF;
-    m_data[4] = (dy16 >> 8) & 0xFF;
-
-    update();
 }
 
 void HIDMouse::updateButton(ButtonID button, bool press) {
@@ -75,11 +53,60 @@ void HIDMouse::updateButton(ButtonID button, bool press) {
         m_data[0] ^= mask;
     }
 
-    // Movement should be zero for button updates
+    // X
     m_data[1] = 0x00;
     m_data[2] = 0x00;
+    
+    // Y
     m_data[3] = 0x00;
     m_data[4] = 0x00;
+
+    // Wheel
+    m_data[5] = 0x00;
+    m_data[6] = 0x00;
+
+    update();
+}
+
+
+void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
+    // Convert to SInt16
+    SInt16 dx16 = (SInt16)dx;
+    SInt16 dy16 = (SInt16)dy;
+
+    LOG((CLOG_DEBUG "relativeMove: %i %i", (SInt32)dx16, (SInt32)dy16));
+
+    // X
+    m_data[1] = dx16 & 0xFF;
+    m_data[2] = (dx16 >> 8) & 0xFF;
+
+    // Y
+    m_data[3] = dy16 & 0xFF;
+    m_data[4] = (dy16 >> 8) & 0xFF;
+
+    // Wheel
+    m_data[5] = 0x00;
+    m_data[6] = 0x00;
+
+    update();
+}
+
+
+void HIDMouse::wheel(SInt32 dy) {
+    // Convert to SInt16
+    SInt16 dy16 = (SInt16)dy;
+
+    // X
+    m_data[1] = 0x00;
+    m_data[2] = 0x00;
+
+    // Y
+    m_data[3] = 0x00;
+    m_data[4] = 0x00;
+
+    // Wheel
+    m_data[5] = dy16 & 0xFF;
+    m_data[6] = (dy16 >> 8) & 0xFF;
 
     update();
 }

@@ -10,14 +10,13 @@
 
 class HIDDevice {
 public:
-    HIDDevice(const std::string& path, UInt32 dataSize);
+    HIDDevice(const std::string& path, UInt32 reportSize);
     virtual ~HIDDevice();
 
 protected:
     std::string m_path;
-    size_t m_dataSize;
-    char* m_data;
-    void update();
+    size_t m_reportSize;
+    void update(char* data) const;
 
 private:
     int m_fd;

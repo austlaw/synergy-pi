@@ -13,6 +13,7 @@ public:
     void updateButton(ButtonID button, bool press);
 
 private:
-    static const UInt32 DATA_SIZE = 5;
+    char m_buttons;
+    static const UInt32 REPORT_SIZE = 5;
     static const UInt32 LOGICAL_MAX = 0x7FFF;
 };

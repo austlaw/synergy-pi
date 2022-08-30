@@ -15,9 +15,9 @@
  */
 HIDMouse::HIDMouse(
         const std::string& path) :
-    HIDDevice(path, DATA_SIZE)
+    m_buttons(0x00),
+    HIDDevice(path, REPORT_SIZE)
 {
-
 }
 
 HIDMouse::~HIDMouse() {
@@ -47,66 +47,85 @@ void HIDMouse::updateButton(ButtonID button, bool press) {
     }
 
     // Check if the button needs to be toggled
-    if (press && (m_data[0] & mask) == 0) {
-        m_data[0] ^= mask;
-    } else if (!press && (m_data[0] & mask) != 0) {
-        m_data[0] ^= mask;
+    if (press && (m_buttons & mask) == 0) {
+        m_buttons ^= mask;
+    } else if (!press && (m_buttons & mask) != 0) {
+        m_buttons ^= mask;
     }
 
+    // Report
+    char report[m_reportSize];
+    memset(report,0,m_reportSize);
+
+    // Buttons
+    report[0] = m_buttons;
+
     // X
-    m_data[1] = 0x00;
-    m_data[2] = 0x00;
-    
+    report[1] = 0x00;
+    report[2] = 0x00;
+
     // Y
-    m_data[3] = 0x00;
-    m_data[4] = 0x00;
+    report[3] = 0x00;
+    report[4] = 0x00;
 
     // Wheel
-    m_data[5] = 0x00;
-    m_data[6] = 0x00;
+    report[5] = 0x00;
+    report[6] = 0x00;
 
-    update();
+    update(report);
 }
 
 
-void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) {
+void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) const {
+
     // Convert to SInt16
     SInt16 dx16 = (SInt16)dx;
     SInt16 dy16 = (SInt16)dy;
 
     LOG((CLOG_DEBUG "relativeMove: %i %i", (SInt32)dx16, (SInt32)dy16));
 
+    // Report
+    char report[m_reportSize];
+    memset(report,0,m_reportSize);
+
+    // Buttons
+    report[0] = m_buttons;
+
     // X
-    m_data[1] = dx16 & 0xFF;
-    m_data[2] = (dx16 >> 8) & 0xFF;
+    report[1] = dx16 & 0xFF;
+    report[2] = (dx16 >> 8) & 0xFF;
 
     // Y
-    m_data[3] = dy16 & 0xFF;
-    m_data[4] = (dy16 >> 8) & 0xFF;
+    report[3] = dy16 & 0xFF;
+    report[4] = (dy16 >> 8) & 0xFF;
 
     // Wheel
-    m_data[5] = 0x00;
-    m_data[6] = 0x00;
+    report[5] = 0x00;
+    report[6] = 0x00;
 
-    update();
+    update(report);
 }
 
 
-void HIDMouse::wheel(SInt32 dy) {
+void HIDMouse::wheel(SInt32 dy) const {
+
+    char report[m_reportSize];
+    memset(report,0,m_reportSize);
+
     // Convert to SInt16
     SInt16 dy16 = (SInt16)dy;
 
     // X
-    m_data[1] = 0x00;
-    m_data[2] = 0x00;
+    report[1] = 0x00;
+    report[2] = 0x00;
 
     // Y
-    m_data[3] = 0x00;
-    m_data[4] = 0x00;
+    report[3] = 0x00;
+    report[4] = 0x00;
 
     // Wheel
-    m_data[5] = dy16 & 0xFF;
-    m_data[6] = (dy16 >> 8) & 0xFF;
+    report[5] = dy16 & 0xFF;
+    report[6] = (dy16 >> 8) & 0xFF;
 
-    update();
+    update(report);
 }

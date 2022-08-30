@@ -13,9 +13,10 @@ public:
     ~HIDMouse();
 
     void updateButton(ButtonID button, bool press);
-    void relativeMove(SInt32 dx, SInt32 dy);
-    void wheel(SInt32 dy);
+    void relativeMove(SInt32 dx, SInt32 dy) const;
+    void wheel(SInt32 dy) const;
 
 private:
-    static const UInt32 DATA_SIZE = 7;
+    static const UInt32 REPORT_SIZE = 7;
+    char m_buttons;
 };

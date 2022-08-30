@@ -4,7 +4,8 @@
 
 HIDMouseAbs::HIDMouseAbs(
         const std::string& path) :
-    HIDDevice(path, DATA_SIZE)
+    m_buttons(0x00),
+    HIDDevice(path, REPORT_SIZE)
 {
 
 }
@@ -13,29 +14,8 @@ HIDMouseAbs::~HIDMouseAbs() {
 
 }
 
-// Absolute move
-// 0.0 < fx <= 1.0
-// 0.0 < fy <= 1.0
-// Note: 0.0 is invalid
-void HIDMouseAbs::move(float fx, float fy) {
-    // Scale
-    UInt32 x = fx * LOGICAL_MAX; // 0 is invalid
-    UInt32 y = fy * LOGICAL_MAX; // 0 is invalid
 
-    LOG((CLOG_DEBUG "absoluteMove: (%f,%f) (%u,%u)", fx, fy, x, y));
-
-    // UInt16 Little Endian
-    m_data[1] = x & 0xFF;
-    m_data[2] = (x >> 8) & 0xFF;
-
-    m_data[3] = y & 0xFF;
-    m_data[4] = (y >> 8) & 0xFF;
-
-
-    update();
-}
-
-void HIDMouseAbs::updateButton(ButtonID button, bool press) {
+void HIDMouse::updateButton(ButtonID button, bool press) {
 
     UInt8 mask;
 
@@ -58,17 +38,64 @@ void HIDMouseAbs::updateButton(ButtonID button, bool press) {
     }
 
     // Check if the button needs to be toggled
-    if (press && (m_data[0] & mask) == 0) {
-        m_data[0] ^= mask;
-    } else if (!press && (m_data[0] & mask) != 0) {
-        m_data[0] ^= mask;
+    if (press && (m_buttons & mask) == 0) {
+        m_buttons ^= mask;
+    } else if (!press && (m_buttons & mask) != 0) {
+        m_buttons ^= mask;
     }
 
-    // Movement should be zero for button updates
-    m_data[1] = 0x00;
-    m_data[2] = 0x00;
-    m_data[3] = 0x00;
-    m_data[4] = 0x00;
+    // Report
+    char report[m_reportSize];
 
-    update();
+    // Buttons
+    report[0] = m_buttons;
+
+    // X
+    report[1] = 0x00;
+    report[2] = 0x00;
+
+    // Y
+    report[3] = 0x00;
+    report[4] = 0x00;
+
+    // Wheel
+    report[5] = 0x00;
+    report[6] = 0x00;
+
+    update(report);
+}
+
+
+
+// Absolute move
+// 0.0 < fx <= 1.0
+// 0.0 < fy <= 1.0
+// Note: 0.0 is invalid
+void HIDMouseAbs::move(float fx, float fy) {
+    // Scale
+    UInt32 x = fx * LOGICAL_MAX; // 0 is invalid
+    UInt32 y = fy * LOGICAL_MAX; // 0 is invalid
+
+    LOG((CLOG_DEBUG "absoluteMove: (%f,%f) (%u,%u)", fx, fy, x, y));
+
+    // Report
+    char report[m_reportSize];
+    memset(report,0,m_reportSize);
+
+    // Buttons
+    report[0] = m_buttons;
+
+    // X
+    m_data[1] = x & 0xFF;
+    m_data[2] = (x >> 8) & 0xFF;
+
+    // Y
+    m_data[3] = y & 0xFF;
+    m_data[4] = (y >> 8) & 0xFF;
+
+    // Wheel
+    report[5] = 0x00;
+    report[6] = 0x00;
+
+    update(report);
 }

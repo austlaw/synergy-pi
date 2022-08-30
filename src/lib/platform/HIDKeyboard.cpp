@@ -191,7 +191,7 @@ std::map<KeyID, unsigned char> HIDKeyboard::KEY_TO_USB_VALUE = {
 
 HIDKeyboard::HIDKeyboard(
         const std::string& path) :
-        HIDDevice(path, DATA_SIZE)
+        HIDDevice(path, REPORT_SIZE)
 {
 
 }
@@ -247,11 +247,16 @@ void HIDKeyboard::releaseKey(KeyID button) {
     }
 }
 
-void HIDKeyboard::updateKeys() {
-    m_data[0] = m_modifier;
+void HIDKeyboard::updateKeys() const {
+    // Report
+    char report[m_reportSize];
+    memset(report,0,m_reportSize);
+
+    report[0] = m_modifier;
     for (int i = 0; i < 6; ++i) {
-        m_data[i + 2] = m_pressedKeys[i];
+        report[i + 2] = m_pressedKeys[i];
     }
-    update();
+
+    update(report);
 }
 

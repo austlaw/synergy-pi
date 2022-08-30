@@ -73,7 +73,7 @@ void HIDMouseAbs::move(float fx, float fy) {
     UInt32 x = fx * LOGICAL_MAX; // 0 is invalid
     UInt32 y = fy * LOGICAL_MAX; // 0 is invalid
 
-    LOG((CLOG_DEBUG "absoluteMove: (%f,%f) (%u,%u)", fx, fy, x, y));
+    LOG((CLOG_DEBUG "HIDMouseAbs::move(%f, %f)", fx, fy));
 
     // Report
     char report[m_reportSize];

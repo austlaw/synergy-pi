@@ -82,7 +82,7 @@ void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) const {
     SInt16 dx16 = (SInt16)dx;
     SInt16 dy16 = (SInt16)dy;
 
-    LOG((CLOG_DEBUG "relativeMove: %i %i", (SInt32)dx16, (SInt32)dy16));
+    LOG((CLOG_DEBUG "HIDMouse::relativeMove(%i, %i)", (SInt32)dx16, (SInt32)dy16));
 
     // Report
     char report[m_reportSize];
@@ -108,12 +108,17 @@ void HIDMouse::relativeMove(SInt32 dx, SInt32 dy) const {
 
 
 void HIDMouse::wheel(SInt32 dy) const {
+    // Convert to SInt16
+    SInt16 dy16 = (SInt16)dy;
 
+    LOG((CLOG_DEBUG "HIDMouse::wheel(%i)", (SInt32)dy16));
+
+    // Report
     char report[m_reportSize];
     memset(report,0,m_reportSize);
 
-    // Convert to SInt16
-    SInt16 dy16 = (SInt16)dy;
+    // Buttons
+    report[0] = m_buttons;
 
     // X
     report[1] = 0x00;

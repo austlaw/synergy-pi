@@ -18,5 +18,6 @@ public:
 
 private:
     static const UInt32 REPORT_SIZE = 7;
+    static const UInt32 LOGICAL_MAX = 0x7FFF;
     char m_buttons;
 };

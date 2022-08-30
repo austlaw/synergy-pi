@@ -149,7 +149,7 @@ void HIDScreen::fakeMouseRelativeMove(SInt32 dx, SInt32 dy) const
 
 void HIDScreen::fakeMouseWheel(SInt32 xDelta, SInt32 yDelta) const
 {
-    m_mouseDevice.mouseWheel(yDelta);
+    m_mouseDevice.wheel(yDelta);
 }
 
 void HIDScreen::enable()

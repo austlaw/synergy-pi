@@ -131,10 +131,8 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
 {
     LOG((CLOG_DEBUG "fakeMouseMove: (%i %i)", x, y));
 
-    // Relative movement
-    SInt32 dx = x - m_mouseX;
-    SInt32 dy = y - m_mouseY;
-    m_mouseAbsDevice.relativeMove(dx, dy);
+    // Absolute movement
+    m_mouseAbsDevice.move((float)dx/m_width, (float)dy/m_height);
 
     // Store new position
     m_mouseX = x;
@@ -144,7 +142,11 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
 void HIDScreen::fakeMouseRelativeMove(SInt32 dx, SInt32 dy) const
 {
     LOG((CLOG_DEBUG "fakeMouseRelativeMove: (%i %i)", dx, dy));
-    //m_mouseDevice.relativeMove(dx, dy); - Not allowed because it violated const rules
+
+    // Relative movement
+    SInt32 dx = x - m_mouseX;
+    SInt32 dy = y - m_mouseY;
+    m_mouseDevice.relativeMove(dx, dy);
 }
 
 void HIDScreen::fakeMouseWheel(SInt32 xDelta, SInt32 yDelta) const

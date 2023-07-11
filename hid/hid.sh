@@ -33,7 +33,8 @@ mkdir -p functions/hid.$B_N
 echo 2 > functions/hid.$B_N/protocol
 echo 1 > functions/hid.$B_N/subclass
 echo 5 > functions/hid.$B_N/report_length
-echo -ne \\x05\\x01\
+echo -ne \
+\\x05\\x01\
 \\x09\\x02\
 \\xa1\\x01\
 \\x09\\x01\
@@ -67,7 +68,8 @@ mkdir -p functions/hid.$C_N
 echo 2 > functions/hid.$C_N/protocol
 echo 1 > functions/hid.$C_N/subclass
 echo 5 > functions/hid.$C_N/report_length
-echo -ne \\x05\\x01\
+echo -ne \
+\\x05\\x01\
 \\x09\\x02\
 \\xa1\\x01\
 \\x09\\x01\

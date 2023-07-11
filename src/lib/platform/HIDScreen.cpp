@@ -134,7 +134,7 @@ void HIDScreen::fakeMouseMove(SInt32 x, SInt32 y)
     // Relative movement
     SInt32 dx = x - m_mouseX;
     SInt32 dy = y - m_mouseY;
-    m_mouseDevice.relativeMove(dx, dy);
+    m_mouseAbsDevice.relativeMove(dx, dy);
 
     // Store new position
     m_mouseX = x;
@@ -165,9 +165,9 @@ void HIDScreen::disable()
 void HIDScreen::enter()
 {
     // Move the pointer to the center the primary screen
-    m_mouseX = m_x;
-    m_mouseY = m_y;
-    m_mouseAbsDevice.move(0.5, 0.5);
+    //m_mouseX = m_x;
+    //m_mouseY = m_y;
+    //m_mouseAbsDevice.move(0.5, 0.5);
 }
 
 bool HIDScreen::leave()

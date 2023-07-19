@@ -41,6 +41,7 @@
 #include "base/TMethodJob.h"
 #include "base/Log.h"
 #include "common/Version.h"
+#include "synergy/AppUtil.h"
 
 #if SYSAPI_WIN32
 #include "arch/win32/ArchMiscWindows.h"
@@ -50,6 +51,7 @@
 #include "platform/MSWindowsScreen.h"
 #elif WINAPI_XWINDOWS
 #include "platform/XWindowsScreen.h"
+#include "platform/HIDScreen.h"
 #elif WINAPI_CARBON
 #include "platform/OSXScreen.h"
 #endif
@@ -179,12 +181,29 @@ ClientApp::createScreen()
 {
 #if WINAPI_MSWINDOWS
     return new synergy::Screen(new MSWindowsScreen(
-        false, args().m_noHooks, args().m_stopOnDeskSwitch, m_events,
-        args().m_enableLangSync, args().m_clientScrollDirection), m_events);
+            false, args().m_noHooks, args().m_stopOnDeskSwitch, m_events,
+            args().m_enableLangSync, args().m_clientScrollDirection),
+        m_events);
 #elif WINAPI_XWINDOWS
-    return new synergy::Screen(new XWindowsScreen(
-        args().m_display, false, args().m_disableXInitThreads,
-        args().m_yscroll, m_events, args().m_clientScrollDirection), m_events);
+    if (args().m_hid) {
+        return new synergy::Screen(new HIDScreen(
+                args().m_keyboardDevice,
+                args().m_mouseDevice,
+                args().m_mouseAbsDevice,
+                args().m_screenWidth, args().m_screenHeight,
+                args().m_screenX, args().m_screenY,
+                AppUtil::instance().getKeyboardLayoutList(),
+                args().m_enableLangSync,
+                m_events
+                ),
+            m_events);
+    }
+    else {
+	    return new synergy::Screen(new XWindowsScreen(
+	            args().m_display, false, args().m_disableXInitThreads,
+	            args().m_yscroll, m_events, args().m_clientScrollDirection),
+            m_events);
+    }
 #elif WINAPI_CARBON
 	 return new synergy::Screen(new OSXScreen(m_events, false,
                                               args().m_enableLangSync,

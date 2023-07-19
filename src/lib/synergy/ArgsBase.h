@@ -66,6 +66,14 @@ namespace lib {
 #endif
 #if WINAPI_XWINDOWS
             bool                 m_disableXInitThreads   = false;
+		    bool                 m_hid;
+		    String               m_keyboardDevice;
+		    String               m_mouseDevice;
+		    String               m_mouseAbsDevice;
+		    int                  m_screenWidth;
+		    int                  m_screenHeight;
+		    int                  m_screenX;
+		    int                  m_screenY;
 #endif
 
         protected:

@@ -1,0 +1,14 @@
+[Unit]
+Description=synergy-pi
+After=network.target
+StartLimitIntervalSec=5
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=pi
+ExecStart=/home/pi/synergy/start.sh
+
+[Install]
+WantedBy=multi-user.target

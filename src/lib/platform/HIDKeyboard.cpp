@@ -7,14 +7,16 @@
 #include "HIDKeyboard.h"
 
 std::map<KeyID, unsigned char> HIDKeyboard::KEY_TO_USB_MODIFIER = {
-        {kKeyControl_L, 0x01},
-        {kKeyControl_R, 0x10},
-        {kKeyShift_L, 0x02},
-        {kKeyShift_R, 0x20},
-        {kKeyAlt_L, 0x04},
-        {kKeyAlt_R, 0x40},
-        {kKeyMeta_L, 0x08},
-        {kKeyMeta_R, 0x80},
+        {kKeyControl_L, 0b00000001},
+        {kKeyControl_R, 0b00010000},
+        {kKeyShift_L,   0b00000010},
+        {kKeyShift_R,   0b00100000},
+        {kKeyAlt_L,     0b00000100},
+        {kKeyAlt_R,     0b01000000},
+        {kKeyMeta_L,    0b00001000},
+        {kKeyMeta_R,    0x10000000},
+        {kKeySuper_L,   0b00001000},
+        {kKeySuper_R,   0x10000000},
 };
 
 std::map<KeyID, unsigned char> HIDKeyboard::KEY_TO_USB_VALUE = {
@@ -214,6 +216,7 @@ void HIDKeyboard::pressKey(KeyID button) {
         return;
     }
     unsigned char value = valueIter->second;
+    LOG((CLOG_DEBUG "HIDKeyboard:pressKey (0x%x)", value));
     for (unsigned char &pressedKey : m_pressedKeys) {
         if (pressedKey == 0) {
             pressedKey = value;
@@ -238,6 +241,7 @@ void HIDKeyboard::releaseKey(KeyID button) {
         return;
     }
     unsigned char key = valueIter->second;
+    LOG((CLOG_DEBUG "HIDKeyboard:releaseKey (0x%x)", key));
     for (unsigned char &pressedKey : m_pressedKeys) {
         if (pressedKey == key) {
             pressedKey = 0;

@@ -69,14 +69,14 @@ void HIDKeyState::getKeyMap(synergy::KeyMap &keyMap)
 
 void HIDKeyState::fakeKeyDown(KeyID id, KeyModifierMask mask, KeyButton button, const String& lang)
 {
-    LOG((CLOG_DEBUG "fakeKeyDown (%d, %d)", button, id));
+    LOG((CLOG_DEBUG "fakeKeyDown (0x%x, 0x%x)", button, id));
     m_serverIDToKeyIDMap[button] = id;
     m_keyboardDevice.pressKey(id);
 }
 
 
 bool HIDKeyState::fakeKeyUp(KeyButton button) {
-    LOG((CLOG_DEBUG "fakeKeyUp (%d)", button));
+    LOG((CLOG_DEBUG "fakeKeyUp (0x%x)", button));
     auto id = m_serverIDToKeyIDMap.find(button);
     if (id == m_serverIDToKeyIDMap.end()) {
         return false;
